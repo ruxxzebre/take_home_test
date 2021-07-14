@@ -7,8 +7,8 @@ function Table({ columns, rows }) {
       <table className="table is-hoverable">
         <thead>
           <tr>
-            {columns.map((i) => (
-							<th>
+            {columns.map((i, idx) => (
+							<th key={`tableheader-${idx}`}>
 								{i.shorten
 									? <><abbr title={i.label}>{i.shorten}</abbr></>
 									: i.label
@@ -18,8 +18,8 @@ function Table({ columns, rows }) {
           </tr>
         </thead>
         <tbody>
-          {rows.map((row) => (
-            <tr>
+          {rows.map((row, idx) => (
+            <tr key={`tablerow-${idx}`}>
               {columns.map((i) => (
                 <td>{row[i.key] || null} </td>
               ))}
