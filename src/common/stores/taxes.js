@@ -1,4 +1,5 @@
 import { createStore, applyMiddleware } from "redux";
+import API from "../api";
 import reduxThunk from "redux-thunk";
 
 export const ActionTypes = {
@@ -51,10 +52,11 @@ function taxReducer(state = {}, action) {
 function initData() {
 	return (dispatch) => {
 		(async () => {
-			const data = await fetch("https://api-prod.workhorsescs.pro/api/taxes").then(r => r.json());
+			const response = await API.get("/taxes");
+			if (response.status !== 200) return;
 			dispatch({
 				type: ActionTypes.INIT_ENTRIES,
-        payload: data.data,
+        payload: response.data.data,
       });
 		})();
 	};
